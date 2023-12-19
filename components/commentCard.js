@@ -1,34 +1,73 @@
-import { useEffect, useState } from 'react';
-import { Card } from 'react-bootstrap';
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
-import { getSingleUser } from './utils/data/userData';
+import { useAuth } from '../utils/context/authContext';
+import { getSinglePost } from '../utils/data/postData';
+import { deleteComment } from './utils/data/commentData';
+import CommentContainer from './commentContainer';
 
-const Comment = ({ obj }) => {
-  const [user, setUser] = useState('');
+const CommentCard = ({ comment, setPost }) => {
+  const { user } = useAuth();
+  const [editing, setEditing] = useState(false);
 
-  useEffect(() => {
-    getSingleUser(obj.author_id).then(setUser);
-  }, [obj]);
+  const handleCommentDelete = () => {
+    if (window.confirm('Delete your comment?')) {
+      deleteComment(comment.id)
+        .then(() => getSinglePost(comment.post))
+        .then(setPost);
+    }
+  };
+
+  const handleEditing = () => {
+    if (editing) {
+      setEditing(false);
+    }
+    setEditing(true);
+  };
 
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Body>
-
-        <Card.Subtitle className="mb-2 text-muted">{user.first_name} {user.last_name}</Card.Subtitle>
-        <Card.Text>
-          {obj.content}
-        </Card.Text>
-      </Card.Body>
-    </Card>
+    <>
+      {!editing ? (
+        <>
+          <Card className="comment-card">
+            <Card.Body>{comment.content}</Card.Body>
+            <Card.Body>{/* Include comment author and created_on */}</Card.Body>
+            {user.id === comment.author ? (
+              <>
+                <Button size="sm" variant="danger" onClick={handleCommentDelete}>
+                  Delete
+                </Button>
+                <Button size="sm" variant="primary" onClick={handleEditing}>
+                  Edit
+                </Button>
+              </>
+            ) : (
+              ''
+            )}
+          </Card>
+        </>
+      ) : (
+        <CommentContainer
+          setPost={setPost}
+          postId={comment.post}
+          comment={comment}
+          setEditing={setEditing}
+          handleCommentDelete={handleCommentDelete}
+        />
+      )}
+    </>
   );
 };
 
-Comment.propTypes = {
-  obj: {
-    author_id: PropTypes.num,
-    content: PropTypes.string,
-    id: PropTypes.num,
-  }.isRequired,
+CommentCard.propTypes = {
+  comment: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    content: PropTypes.string.isRequired,
+    author: PropTypes.number.isRequired,
+    post: PropTypes.number.isRequired,
+  }).isRequired,
+  setPost: PropTypes.func.isRequired,
 };
 
-export default Comment;
+export default CommentCard;
