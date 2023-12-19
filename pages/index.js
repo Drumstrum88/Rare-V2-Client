@@ -13,10 +13,9 @@ function Home() {
     <div className="posts">
       <div className="logo-title">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="logo" src="https://www.craiyon.com/image/79IpA6paSDasjDLwaDQARA" alt="logo" />
-        <h1 className="rarev2">Rare Version 2</h1>
+        <img className="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHDWPYbmEzou6oNVMMEZ5u8FPyP5GHLvkFvA&usqp=CAU" alt="logo" />
       </div>
-      {posts && posts.map((post) => <SeePostCard post={post} />)}
+      {posts && posts.map((post) => <SeePostCard postObj={post} onUpdate={getPosts} />)}
     </div>
   );
 }
