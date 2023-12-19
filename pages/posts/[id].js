@@ -11,6 +11,7 @@ import { deleteComment, getCommentsForPost } from '../../components/utils/data/c
 const ViewPost = () => {
   const router = useRouter();
   const [postDetails, setPostDetails] = useState({});
+  const [comments, setComments] = useState([]);
   const { id } = router.query;
 
   const deleteThisPost = () => {
@@ -19,21 +20,35 @@ const ViewPost = () => {
     }
   };
 
-  const refreshPost = () => {
-    getSinglePost(id).then((postData) => {
-      setPostDetails(postData);
-    });
-  };
-
-  const handleCommentDelete = () => {
+  const handleCommentDelete = (commentId) => {
     if (window.confirm('Delete This Comment?')) {
-      deleteComment(id).then(() => getCommentsForPost());
+      deleteComment(commentId)
+        .then(() => {
+          // Refresh comments after deletion
+          getCommentsForPost(id).then((commentsData) => {
+            const filteredComments = commentsData.filter((comment) => comment.post_id === id);
+            setComments(filteredComments);
+          });
+        });
     }
   };
 
   useEffect(() => {
-    refreshPost();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (id) {
+      getSinglePost(id)
+        .then((postData) => {
+          setPostDetails(postData);
+        })
+        .catch((error) => {
+          console.error('Trouble fetching post details', error);
+        });
+
+      getCommentsForPost(id)
+        .then((commentsData) => {
+          const filteredComments = commentsData.filter((comment) => comment.post_id === id);
+          setComments(filteredComments);
+        });
+    }
   }, [id]);
 
   return (
@@ -44,14 +59,13 @@ const ViewPost = () => {
         <p>posted on: {postDetails.publication_date}</p>
         <p>{postDetails.content}</p>
         <CommentContainer setPost={setPostDetails} postId={id} />
-        {postDetails.comments
-          && postDetails.comments.map((comment) => (
-            <CommentCard
-              key={`comment${comment.id}`}
-              comment={comment}
-              handleCommentDelete={handleCommentDelete}
-            />
-          ))}
+        {comments.map((comment) => (
+          <CommentCard
+            key={`comment${comment.id}`}
+            comment={comment}
+            handleCommentDelete={() => handleCommentDelete(comment.id)}
+          />
+        ))}
         {/* TODO:categories, tags, or whatever to show on post */}
         <Button variant="danger" onClick={deleteThisPost} className="m-2">
           Delete Post
