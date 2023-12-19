@@ -15,5 +15,23 @@ const getSingleUser = async (id) => {
   }
 };
 
+const checkUser = (uid) => fetch(`${clientCredentials.databaseURL}/checkuser`, {
+  method: 'POST',
+  body: JSON.stringify({ uid }),
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .catch((error) => {
+    console.error('Fetch Error:', error);
+    throw error;
+  });
+
 // eslint-disable-next-line import/prefer-default-export
-export { getSingleUser };
+export { getSingleUser, checkUser };
