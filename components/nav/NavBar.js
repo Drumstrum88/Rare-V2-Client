@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  Navbar, //
+  Navbar,
   Container,
   Nav,
   Button,
@@ -22,8 +22,11 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Home</Nav.Link>
             </Link>
-            <Link passHref href="/posts/new">
-              <Nav.Link>Create Post</Nav.Link>
+            <Link passHref href="/posts">
+              <Nav.Link>Posts</Nav.Link>
+            </Link>
+            <Link passHref href="/new">
+              <Nav.Link>New Post</Nav.Link>
             </Link>
           </Nav>
           <Nav>
