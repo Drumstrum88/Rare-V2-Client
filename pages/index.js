@@ -1,21 +1,21 @@
-import { useEffect } from 'react';
-// import { getAllPosts } from '../utils/data/postData';
-// import PostCard from '../components/postCard';
+import { useEffect, useState } from 'react';
+import { getPosts } from '../utils/data/postData';
+import SeePostCard from '../components/PostCard';
 
 function Home() {
-  // const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // getAllPosts().then(setPosts);
+    getPosts().then(setPosts);
   }, []);
 
   return (
     <div className="posts">
       <div className="logo-title">
-        {/* <img className="logo" src="https://www.craiyon.com/image/79IpA6paSDasjDLwaDQARA" /> */}
+        <img className="logo" src="https://www.craiyon.com/image/79IpA6paSDasjDLwaDQARA" alt="logo" />
         <h1 className="rarev2">Rare Version 2</h1>
       </div>
-      {/* {posts && posts.map((post) => <PostCard post={post} />)} */}
+      {posts && posts.map((post) => <SeePostCard post={post} />)}
     </div>
   );
 }
