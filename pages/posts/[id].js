@@ -1,6 +1,7 @@
 // Post details
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 import { useRouter } from 'next/router';
 import { Card } from 'react-bootstrap';
 import { deletePost, getSinglePost } from '../../utils/data/postData';
@@ -25,7 +26,7 @@ const ViewPost = () => {
   return (
     <>
       <Card className="text-center">
-        <img src={postDetails.image_url} alt={postDetails.title} style={{ height: '8em' }} />
+        <Image src={postDetails.image_url} />
         <Card.Title> {postDetails.title}</Card.Title>
         <p>posted on: {postDetails.publication_date}</p>
         <p>{postDetails.content}</p>

@@ -12,6 +12,7 @@ function Home() {
   return (
     <div className="posts">
       <div className="logo-title">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="logo" src="https://www.craiyon.com/image/79IpA6paSDasjDLwaDQARA" alt="logo" />
         <h1 className="rarev2">Rare Version 2</h1>
       </div>
