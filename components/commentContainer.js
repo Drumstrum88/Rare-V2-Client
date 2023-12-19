@@ -58,7 +58,7 @@ const CommentContainer = ({ postId }) => {
 };
 
 CommentContainer.propTypes = {
-  postId: PropTypes.number.isRequired,
+  postId: PropTypes.string.isRequired,
 };
 
 export default CommentContainer;
