@@ -6,9 +6,7 @@ function CategoryCard({ categoryObj }) {
   return (
     <Card className="catCard">
       <Card.Body>
-        <div id="catBody">
-          <Card.Title className="catTitle">{categoryObj.label}</Card.Title>
-        </div>
+        <Card.Title>{categoryObj.label}</Card.Title>
       </Card.Body>
     </Card>
   );
