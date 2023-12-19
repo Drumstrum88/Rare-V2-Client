@@ -38,4 +38,23 @@ const deleteComment = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { getSingleComment, getComments, deleteComment };
+const updateComment = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/comments/${payload.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((data) => {
+      if (data) {
+        resolve(data);
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+export {
+  getSingleComment, getComments, deleteComment, updateComment,
+};
