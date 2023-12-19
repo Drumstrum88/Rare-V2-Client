@@ -2,20 +2,20 @@ import { clientCredentials } from '../../../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-const getComments = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/users`, {
+const getCommentsForPost = (postId) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/comments?post_id=${postId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => resolve(data))
     .catch(reject);
 });
 
 const getSingleComment = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/comments/${id}`, {
+  fetch(`${endpoint}/comments/${id}.json`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -28,14 +28,49 @@ const getSingleComment = (id) => new Promise((resolve, reject) => {
 
 const deleteComment = (id) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/comments/${id}`, {
-    method: 'DElETE',
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
     .then((data) => resolve(data))
+    .catch((error) => {
+      console.error('Error deleting comment:', error);
+      reject(error);
+    });
+});
+
+const updateComment = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/comments/${payload.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((data) => {
+      if (data) {
+        resolve(data);
+      } else {
+        resolve([]);
+      }
+    })
     .catch(reject);
 });
 
-export { getSingleComment, getComments, deleteComment };
+const createComment = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/comments`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+export {
+  getSingleComment, getCommentsForPost, deleteComment, updateComment, createComment,
+};

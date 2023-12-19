@@ -1,4 +1,4 @@
-const postEndpoint = 'http://localhost:8088/posts';
+const postEndpoint = 'http://localhost:8000/posts';
 
 const getPosts = () => new Promise((resolve, reject) => {
   fetch(`${postEndpoint}`, {
