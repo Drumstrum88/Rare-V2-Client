@@ -13,7 +13,7 @@ export default function SeePostCard({ postObj, onUpdate }) {
   };
 
   return (
-    <Card border="light" style={{ width: '18rem', margin: '10px', color: 'white' }}>
+    <Card border="light" style={{ width: '18rem', margin: '10px', color: 'black' }}>
       <h5>Title: {postObj.title}</h5>
       <h5>Date Posted: {postObj.publication_date}</h5>
       <Link href={`/posts/${postObj.id}`} passHref>
