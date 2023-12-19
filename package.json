@@ -1,8 +1,8 @@
 {
-  "name": "next-firebase-starter",
+  "name": "Rare-server-v2",
   "private": true,
   "version": "1.0.0",
-  "author": "Update Name!",
+  "author": "Group 4",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
