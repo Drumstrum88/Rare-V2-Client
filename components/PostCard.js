@@ -15,7 +15,7 @@ export default function SeePostCard({ postObj, onUpdate }) {
   return (
     <Card border="light" style={{ width: '18rem', margin: '10px', color: 'white' }}>
       <h5>Title: {postObj.title}</h5>
-      <h5>Date Posted: {postObj.publication_date}</h5>
+      <h6>Date Posted: {postObj.publication_date}</h6>
       <Link href={`/posts/${postObj.id}`} passHref>
         <Button variant="success" className="m-2">Details</Button>
       </Link>

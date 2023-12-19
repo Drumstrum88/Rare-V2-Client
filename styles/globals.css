@@ -24,3 +24,21 @@ body {
 .navbar-item img {
   max-height: 3rem;
 }
+
+h5 {
+  color: black;
+  text-shadow: 0 0 3px #D3D3D3, 0 0 5px #D3D3D3;
+  font-weight: bold;
+}
+
+h6 {
+  color: rgb(39, 39, 39)
+}
+
+.post-card {
+  background-color: #f4ffda
+}
+
+.comment-card {
+  background-color: #bdff8e
+}
