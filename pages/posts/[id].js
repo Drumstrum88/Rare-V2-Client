@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { Card } from 'react-bootstrap';
 import { deletePost, getSinglePost } from '../../utils/data/postData';
 import CommentContainer from '../../components/commentContainer';
-import CommentCard from '../../components/commentCard';
 import { deleteComment, getCommentsForPost } from '../../components/utils/data/commentData';
+import CommentCard from '../../components/commentCard';
 
 const ViewPost = () => {
   const router = useRouter();
@@ -20,15 +20,26 @@ const ViewPost = () => {
     }
   };
 
+  const updateComments = () => {
+    getCommentsForPost(id)
+      .then((commentsData) => {
+        const filteredComments = commentsData.filter((comment) => comment.post_id === id);
+        setComments(filteredComments);
+      })
+      .catch((error) => {
+        console.error('Error updating comments:', error);
+      });
+  };
+
   const handleCommentDelete = (commentId) => {
     if (window.confirm('Delete This Comment?')) {
       deleteComment(commentId)
         .then(() => {
-          // Refresh comments after deletion
-          getCommentsForPost(id).then((commentsData) => {
-            const filteredComments = commentsData.filter((comment) => comment.post_id === id);
-            setComments(filteredComments);
-          });
+          // Update comments after deletion
+          updateComments();
+        })
+        .catch((error) => {
+          console.error('Error deleting comment:', error);
         });
     }
   };
@@ -61,9 +72,9 @@ const ViewPost = () => {
         <CommentContainer setPost={setPostDetails} postId={id} />
         {comments.map((comment) => (
           <CommentCard
-            key={`comment${comment.id}`}
             comment={comment}
-            handleCommentDelete={() => handleCommentDelete(comment.id)}
+            handleCommentDelete={handleCommentDelete}
+            key={`comment${comment.id}`}
           />
         ))}
         {/* TODO:categories, tags, or whatever to show on post */}

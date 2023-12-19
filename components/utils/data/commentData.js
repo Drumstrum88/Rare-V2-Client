@@ -27,19 +27,22 @@ const getSingleComment = (id) => new Promise((resolve, reject) => {
 });
 
 const deleteComment = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/comments/${id}.json`, {
-    method: 'DElETE',
+  fetch(`${endpoint}/comments/${id}`, {
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
     .then((data) => resolve(data))
-    .catch(reject);
+    .catch((error) => {
+      console.error('Error deleting comment:', error);
+      reject(error);
+    });
 });
 
 const updateComment = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/comments/${payload.id}.json`, {
+  fetch(`${endpoint}/comments/${payload.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
