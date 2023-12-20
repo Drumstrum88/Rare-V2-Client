@@ -26,19 +26,49 @@ body {
 }
 
 h5 {
-  color: black;
-  text-shadow: 0 0 3px #D3D3D3, 0 0 5px #D3D3D3;
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0 10px #373737, 0 0 5px #000000;
   font-weight: bold;
+  text-align: center;
 }
 
 h6 {
-  color: rgb(39, 39, 39)
+  color: rgb(0, 0, 0);
+  text-align: center;
 }
 
 .post-card {
-  background-color: #f4ffda
+  background-color: #f4ffda;
+  border-radius: 30px;
+  border: 5px solid black;
 }
 
+.post-details {
+  margin-top: 15px;
+  background-color: #f4ffda;
+  border-radius: 30px;
+  border: 5px solid rgb(255, 255, 255);
+}
 .comment-card {
   background-color: #bdff8e
+}
+
+.m-2 {
+  width: 80px;
+  text-align: center;
+}
+
+.create-button {
+  margin-top: 10px;
+  background-color: #90d261;
+  border: 3px solid white;
+  border-radius: 20px;
+}
+
+p {
+  text-align: center;
+}
+
+.comments {
+  text-align: center;
 }

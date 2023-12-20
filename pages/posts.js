@@ -18,7 +18,7 @@ function PostViewHome() {
   return (
     <div className="text-center">
       <Link href="/new" passHref>
-        <Button className="m-2">Add New Post</Button>
+        <Button className="create-button">Add New Post!</Button>
       </Link>
       {posts.map((post) => (
         <SeePostCard key={post.id} postObj={post} onUpdate={getAllThePosts} />

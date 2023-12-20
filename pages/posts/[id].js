@@ -64,24 +64,28 @@ const ViewPost = () => {
 
   return (
     <>
-      <Card className="text-center">
-        <Image src={postDetails.image_url} />
-        <Card.Title>{postDetails.title}</Card.Title>
-        <p>posted on: {postDetails.publication_date}</p>
-        <p>{postDetails.content}</p>
-        <CommentContainer setPost={setPostDetails} postId={id} />
-        {comments.map((comment) => (
-          <CommentCard
-            comment={comment}
-            handleCommentDelete={handleCommentDelete}
-            key={`comment${comment.id}`}
-          />
-        ))}
-        {/* TODO:categories, tags, or whatever to show on post */}
-        <Button variant="danger" onClick={deleteThisPost} className="m-2">
-          Delete Post
-        </Button>
-      </Card>
+      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+        <Card className="post-details" style={{ width: '400px' }}>
+          <Image src={postDetails.image_url} />
+          <h5>{postDetails.title}</h5>
+          <h6>posted on: {postDetails.publication_date}</h6>
+          <p>{postDetails.content}</p>
+          <CommentContainer setPost={setPostDetails} postId={id} />
+          {comments.map((comment) => (
+            <CommentCard
+              comment={comment}
+              handleCommentDelete={handleCommentDelete}
+              key={`comment${comment.id}`}
+            />
+          ))}
+          {/* TODO:categories, tags, or whatever to show on post */}
+          <div className="d-flex justify-content-center">
+            <Button variant="danger" onClick={deleteThisPost} className="m-2">
+              Delete Post
+            </Button>
+          </div>
+        </Card>
+      </div>
     </>
   );
 };
