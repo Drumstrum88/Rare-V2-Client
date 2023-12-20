@@ -5,8 +5,12 @@ import SeePostCard from '../components/PostCard';
 function Home() {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
+  const getAllThePosts = () => {
     getPosts().then(setPosts);
+  };
+
+  useEffect(() => {
+    getAllThePosts();
   }, []);
 
   return (
@@ -15,7 +19,7 @@ function Home() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHDWPYbmEzou6oNVMMEZ5u8FPyP5GHLvkFvA&usqp=CAU" alt="logo" />
       </div>
-      {posts && posts.map((post) => <SeePostCard postObj={post} onUpdate={getPosts} />)}
+      {posts && posts.map((post) => <SeePostCard postObj={post} onUpdate={getAllThePosts} />)}
     </div>
   );
 }
